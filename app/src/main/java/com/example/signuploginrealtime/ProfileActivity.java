@@ -9,13 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 public class ProfileActivity extends AppCompatActivity {
 
     TextView profileName, profileEmail, profileUsername, profilePassword;
@@ -27,26 +20,28 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        profileName = findViewById(R.id.profileName);
-        profileEmail = findViewById(R.id.profileEmail);
-        profileUsername = findViewById(R.id.profileUsername);
-        profilePassword = findViewById(R.id.profilePassword);
+        // Initialize UI elements
         titleName = findViewById(R.id.titleName);
         titleUsername = findViewById(R.id.titleUsername);
         editProfile = findViewById(R.id.editButton);
 
+        // Show user data on profile
         showUserData();
 
+        // Edit profile button click listener
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Pass user data to edit profile activity
                 passUserData();
             }
         });
     }
 
+    // Method to retrieve and display user data
     public void showUserData(){
 
+        // Get data from intent
         Intent intent = getIntent();
 
         String nameUser = intent.getStringExtra("name");
@@ -54,6 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         String usernameUser = intent.getStringExtra("username");
         String passwordUser = intent.getStringExtra("password");
 
+        // Set user data to UI elements
         titleName.setText(nameUser);
         titleUsername.setText(usernameUser);
         profileName.setText(nameUser);
@@ -62,37 +58,12 @@ public class ProfileActivity extends AppCompatActivity {
         profilePassword.setText(passwordUser);
     }
 
+    // Method to pass user data to edit profile activity
     public void passUserData(){
+        // Get username from profile
         String userUsername = profileUsername.getText().toString().trim();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-
-                    String nameFromDB = snapshot.child(userUsername).child("name").getValue(String.class);
-                    String emailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
-                    String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
-                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
-
-                    Intent intent = new Intent(ProfileActivity.this, EditProfileActivity.class);
-
-                    intent.putExtra("name", nameFromDB);
-                    intent.putExtra("email", emailFromDB);
-                    intent.putExtra("username", usernameFromDB);
-                    intent.putExtra("password", passwordFromDB);
-
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        // Pass username to edit profile activity
+        // Add your code here to pass data to edit profile activity
     }
 }

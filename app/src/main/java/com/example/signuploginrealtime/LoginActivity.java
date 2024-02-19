@@ -30,31 +30,38 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initializing UI elements
         loginUsername = findViewById(R.id.login_username);
         loginPassword = findViewById(R.id.login_password);
         signupRedirectText = findViewById(R.id.signupRedirectText);
         loginButton = findViewById(R.id.login_button);
 
+        // Login button click listener
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Validate username and password
                 if (!validateUsername() | !validatePassword()){
-
+                    // Validation failed
                 } else {
+                    // Validation successful, proceed to check user
                     checkUser();
                 }
             }
         });
 
+        // Sign up redirection text click listener
         signupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Redirect to sign up activity
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
     }
 
+    // Method to validate username
     public Boolean validateUsername(){
         String val = loginUsername.getText().toString();
         if (val.isEmpty()){
@@ -66,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // Method to validate password
     public Boolean validatePassword(){
         String val = loginPassword.getText().toString();
         if (val.isEmpty()){
@@ -77,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // Method to check user credentials in the database
     public void checkUser(){
         String userUsername = loginUsername.getText().toString().trim();
         String userPassword = loginPassword.getText().toString().trim();
@@ -95,19 +104,17 @@ public class LoginActivity extends AppCompatActivity {
                     if (passwordFromDB.equals(userPassword)){
                         loginUsername.setError(null);
 
-                        //Pass the data using intent
-
+                        // Retrieve user data from the database
                         String nameFromDB = snapshot.child(userUsername).child("name").getValue(String.class);
                         String emailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
                         String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
 
+                        // Pass user data to profile activity using intent
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-
                         intent.putExtra("name", nameFromDB);
                         intent.putExtra("email", emailFromDB);
                         intent.putExtra("username", usernameFromDB);
                         intent.putExtra("password", passwordFromDB);
-
                         startActivity(intent);
                     } else {
                         loginPassword.setError("Invalid Credentials");

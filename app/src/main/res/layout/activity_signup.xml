@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/pagebkg"
+    android:background="@drawable/bg01"
     tools:context=".SignupActivity">
 
+    <!-- CardView to contain the signup form -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
         app:cardCornerRadius="30dp"
         app:cardElevation="20dp">
 
+        <!-- LinearLayout to hold the signup form components -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +27,7 @@
             android:padding="24dp"
             android:background="@drawable/lavender_border">
 
+            <!-- Title TextView -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,6 +37,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/lavender"/>
 
+            <!-- Name EditText -->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -46,6 +50,7 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/grey"/>
 
+            <!-- Email EditText -->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -58,6 +63,7 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/grey"/>
 
+            <!-- Username EditText -->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -70,6 +76,7 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/grey"/>
 
+            <!-- Password EditText -->
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -83,25 +90,27 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
 
+            <!-- Sign Up Button -->
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Sign Up"
                 android:id="@+id/signup_button"
-                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
                 android:layout_marginTop="30dp"
-                app:cornerRadius = "20dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/loginRedirectText"
-                android:text="Already an user? Login"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:layout_marginTop="10dp"
+                android:text="Sign Up"
                 android:textSize="18sp"
-                android:textColor="@color/lavender"/>
+                app:cornerRadius="20dp" />
+
+            <!-- Text to redirect to login screen -->
+            <TextView
+                android:id="@+id/loginRedirectText"
+                android:layout_width="672dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="Already a user? Login"
+                android:textColor="@color/lavender"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
